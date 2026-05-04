@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Life Map Digital Scrapbook</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lora:wght@400;600&family=Sacramento&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config={
+theme:{
+extend:{
+colors:{
+maroon:'#6B1C2A',
+cream:'#FDF6EC',
+beige:'#F0E6D3',
+warmgray:'#8C7B6B',
+gold:'#C9A94E'
+}
+}}
+}
+</script>
+
+<style>
+body{font-family:'Lora',serif;background:#FDF6EC;color:#836c6c;}
+
+.font-display{font-family:'Playfair Display',serif;}
+.font-script{font-family:'Sacramento',cursive;}
+
+.paper{ background-image:url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); }
+
+.polaroid{
+background:white;
+padding:10px 10px 34px;
+box-shadow:0 6px 18px rgba(0,0,0,.15);
+transition:.3s;
+}
+.polaroid:hover{
+transform:scale(1.03);
+}
+
+.polaroid{
+    background:white;
+    padding:10px 10px 34px;
+    box-shadow:0 6px 18px rgba(0,0,0,.15);
+    transition:transform .2s ease, box-shadow .2s ease;
+    transform-style:preserve-3d;
+}
+
+.polaroid img{
+    transition:transform .2s ease;
+    will-change:transform;
+}
+
+.tape{
+width:60px;
+height:18px;
+background:rgba(255,230,160,.7);
+position:absolute;
+top:-10px;
+left:50%;
+transform:translateX(-50%);
+}
+
+.section-divider{
+border-top:2px dashed #C9A94E;
+margin:70px 0;
+position:relative;
+}
+.section-divider::after{
+content:"✦";
+position:absolute;
+top:-14px;
+left:50%;
+transform:translateX(-50%);
+background:#FDF6EC;
+padding:0 12px;
+color:#C9A94E;
+}
+
+.swot{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+@media(max-width:700px){
+.swot{grid-template-columns:1fr;}
+}
+</style>
+</head>
+
+<body class="scroll-smooth">
+
+<!-- NAV -->
+<nav class="sticky top-0 bg-maroon text-cream z-50 shadow">
+<div class="max-w-6xl mx-auto flex justify-between items-center h-14 px-4">
+<span class="font-script text-2xl text-gold">Life Map</span>
+
+<div class="hidden md:flex gap-4 text-sm">
+<a href="#home">Home</a>
+<a href="#physical">Physical</a>
+<a href="#digital">Digital</a>
+<a href="#material">Material</a>
+<a href="#spiritual">Spiritual</a>
+<a href="#political">Political</a>
+<a href="#goals">Learnings</a>
+</div>
+</div>
+</nav>
+
+<!-- COVER -->
+<section id="home" class="min-h-screen flex items-center justify-center paper text-center px-4">
+<div class="border-4 border-double border-maroon p-12 bg-white/70 shadow-xl">
+
+<p class="font-script text-4xl text-gold">A.Y. 2025–2026</p>
+
+<h1 class="font-display text-maroon text-6xl font-bold">
+A journey: "A Milestone Story"
+</h1>
+
+<div class="section-divider"></div>
+
+<p class="font-display text-xl">Group 1</p>
+<p class="uppercase tracking-widest text-sm">Batangas State University</p>
+
+<p class="mt-6 text-sm">
+Russel Christian Flores • Jhon Olyde De Silva • Ethan Sapuay<br>
+John Lorenz Cagalawan • Angelica Aguba • Shayne Ayesa Perez
+</p>
+
+</div>
+</section>
+
+<div id="sections"></div>
+
+<!-- FOOTER -->
+<footer class="bg-maroon text-center text-cream py-8">
+<p class="font-script text-xl text-gold">Life Map Digital Scrapbook</p>
+<p class="text-sm">Understanding the Self • 2025-2026</p>
+</footer>
+
+<script>
+
+const members=[
+"Member 1","Member 2","Member 3",
+"Member 4","Member 5","Member 6"
+];
+
+const sections = [
+{
+id:"physical",
+title:"Physical Self",
+icon:"heart",
+
+members:[
+{ name:"Russel", image:"images/physical/1.jpg", caption:"", story:"" },
+{ name:"Olyde", image:"images/physical/2.jpg", caption:"'Don't Stop Hangga't Di Kapa Masarap'", story:"This photo represents my physical self during my grinding season, starting September 20. I began going to the gym to build my strength and improve my overall health. At the same time, it helps boost my confidence and shape my character, pushing me to become a better version of myself." },
+{ name:"Ethan", image:"images/physical/3.jpg", caption:"", story:"" },
+{ name:"JLorenz", image:"images/physical/4.jpg", caption:"", story:"" },
+{ name:"Angelica", image:"images/physical/5.jpg", caption:"", story:"" },
+{ name:"Shayne", image:"images/physical/6.jpg", caption:"", story:"" }
+],
+
+reflection:"",
+swot:{
+strengths: [],
+weaknesses: [],
+opportunities: [],
+threats: []
+}
+},
+
+{
+id:"digital",
+title:"Digital Self",
+icon:"monitor",
+
+members:[
+{ name:"Member 1", image:"images/digital/1.jpg", caption:"", story:"" },
+{ name:"Member 2", image:"images/digital/2.jpg", caption:"", story:"" },
+{ name:"Member 3", image:"images/digital/3.jpg", caption:"", story:"" },
+{ name:"Member 4", image:"images/digital/4.jpg", caption:"", story:"" },
+{ name:"Member 5", image:"images/digital/5.jpg", caption:"", story:"" },
+{ name:"Member 6", image:"images/digital/6.jpg", caption:"", story:"" }
+],
+
+reflection:"",
+swot:{
+strengths: [],
+weaknesses: [],
+opportunities: [],
+threats: []
+}
+},
+
+{
+id:"material",
+title:"Material Self",
+icon:"gem",
+
+members:[
+{ name:"Member 1", image:"images/material/1.jpg", caption:"", story:"" },
+{ name:"Member 2", image:"images/material/2.jpg", caption:"", story:"" },
+{ name:"Member 3", image:"images/material/3.jpg", caption:"", story:"" },
+{ name:"Member 4", image:"images/material/4.jpg", caption:"", story:"" },
+{ name:"Member 5", image:"images/material/5.jpg", caption:"", story:"" },
+{ name:"Member 6", image:"images/material/6.jpg", caption:"", story:"" }
+],
+
+reflection:"",
+swot:{
+strengths: [],
+weaknesses: [],
+opportunities: [],
+threats: []
+}
+},
+
+{
+id:"spiritual",
+title:"Spiritual Self",
+icon:"sun",
+
+members:[
+{ name:"Russel", image:"images/spiritual/1.jpg", caption:"'Bait-bait ko pa dine'", story:"This picture was taken when I joined our fellowship. It was an overnight outing with the praise and worship team in our church. During those days with them, I felt a sense of closure and belongingness. I became more connected with my faith and the people around me. This experience helped me grow spiritually and emotionally." },
+{ name:"Member 2", image:"images/spiritual/2.jpg", caption:"", story:"" },
+{ name:"Member 3", image:"images/spiritual/3.jpg", caption:"", story:"" },
+{ name:"Member 4", image:"images/spiritual/4.jpg", caption:"", story:"" },
+{ name:"Member 5", image:"images/spiritual/5.jpg", caption:"", story:"" },
+{ name:"Member 6", image:"images/spiritual/6.jpg", caption:"", story:"" }
+],
+
+reflection:"We realized that spiritual self is strengthened through shared experiences and meaningful connections with others. We learned that being part of a faith-based community can give us comfort, guidance, and a sense of belonging. Through different milestones, we saw how spirituality can positively affect our personal growth and emotional well-being. We also realized that spiritual self is not built instantly, but through continuous experiences like fellowships, worship gatherings, and personal reflection that shape our faith and values. This topic helped us understand that spiritual development is not only personal but also influenced by the people and environment around us. Overall, we value how spirituality helps us stay grounded, gives purpose in life, and strengthens our inner selves during challenges.",
+swot:{
+strengths: [
+    "Strong connection with faith and belief system",
+    "Supportive community like church or fellowship groups", 
+    "Provides emotional comfort and guidance during challenges"
+],
+weaknesses: [
+    "May struggle with doubts or questions about faith",
+    "Limited time for spiritual activities due to busy schedules",
+    "Dependence on group activities for spiritual growth"
+],
+opportunities: [
+    "Participation in fellowships, retreats, and church activities",
+    "Personal reflection and prayer for self-growth",
+    "Building stronger relationships with spiritually-minded people"
+],
+threats: [
+    "Negative influences from peers or environment",
+    "Loss of motivation or inconsistency in spiritual practices",
+    "Life pressures that may affect faith and belief system"
+]
+
+}
+},
+
+{
+id:"political",
+title:"Political Self",
+icon:"flag",
+
+members:[
+{ name:"Member 1", image:"images/political/1.jpg", caption:"", story:"" },
+{ name:"Member 2", image:"images/political/2.jpg", caption:"", story:"" },
+{ name:"Member 3", image:"images/political/3.jpg", caption:"", story:"" },
+{ name:"Member 4", image:"images/political/4.jpg", caption:"", story:"" },
+{ name:"Member 5", image:"images/political/5.jpg", caption:"", story:"" },
+{ name:"Member 6", image:"images/political/6.jpg", caption:"", story:"" }
+],
+
+reflection:"",
+swot:{
+strengths: [],
+weaknesses: [],
+opportunities: [],
+threats: []
+}
+},
+
+{
+id:"goals",
+title:"Learning to be a Good Student",
+icon:"target",
+
+members:[
+{ name:"Member 1", image:"images/goals/1.jpg", caption:"", story:"" },
+{ name:"Member 2", image:"images/goals/2.jpg", caption:"", story:"" },
+{ name:"Member 3", image:"images/goals/3.jpg", caption:"", story:"" },
+{ name:"Member 4", image:"images/goals/4.jpg", caption:"", story:"" },
+{ name:"Member 5", image:"images/goals/5.jpg", caption:"", story:"" },
+{ name:"Member 6", image:"images/goals/6.jpg", caption:"", story:"" }
+],
+
+reflection:"",
+swot:{
+strengths: [],
+weaknesses: [],
+opportunities: [],
+threats: []
+}
+}
+
+];
+function buildSections(){
+
+const container = document.getElementById("sections");
+
+container.innerHTML = sections.map(sec => `
+<section id="${sec.id}" class="paper py-20 px-4">
+
+<div class="max-w-6xl mx-auto">
+
+<!-- HEADER -->
+<div class="text-center mb-14">
+<h2 class="font-display text-maroon text-4xl font-bold flex justify-center gap-3">
+<i data-lucide="${sec.icon}"></i>
+${sec.title}
+</h2>
+</div>
+
+<!-- PHOTO GRID -->
+<div class="grid md:grid-cols-3 gap-10">
+
+${sec.members.map(m => `
+<div class="text-center">
+
+<div class="polaroid relative">
+<div class="tape"></div>
+
+<img src="${m.image}"
+class="w-full aspect-square object-cover"
+alt="image">
+
+<p class="font-display text-maroon mt-2 font-bold">${m.name}</p>
+<p class="text-xs italic">${m.caption}</p>
+
+</div>
+
+<div class="bg-white mt-4 p-4 shadow">
+<p class="font-bold text-maroon text-sm">Milestone Story</p>
+<p class="text-xs italic">${m.story}</p>
+</div>
+
+</div>
+`).join("")}
+
+</div>
+
+<!-- REFLECTION -->
+<div class="bg-white mt-16 p-6 border-l-4 border-gold shadow">
+<h3 class="font-display text-maroon text-lg font-bold">Group Reflection</h3>
+<p class="italic text-sm">${sec.reflection}</p>
+</div>
+
+<!-- SWOT -->
+<div class="swot max-w-4xl mx-auto mt-10">
+
+<div class="bg-green-50 p-4 border">
+<b>Strengths</b>
+<ul class="text-xs italic list-disc pl-5">
+${sec.swot.strengths.map(s => `<li>${s}</li>`).join("")}
+</ul>
+</div>
+
+<div class="bg-red-50 p-4 border">
+<b>Weaknesses</b>
+<ul class="text-xs italic list-disc pl-5">
+${sec.swot.weaknesses.map(s => `<li>${s}</li>`).join("")}
+</ul>
+</div>
+
+<div class="bg-blue-50 p-4 border">
+<b>Opportunities</b>
+<ul class="text-xs italic list-disc pl-5">
+${sec.swot.opportunities.map(s => `<li>${s}</li>`).join("")}
+</ul>
+</div>
+
+<div class="bg-yellow-50 p-4 border">
+<b>Threats</b>
+<ul class="text-xs italic list-disc pl-5">
+${sec.swot.threats.map(s => `<li>${s}</li>`).join("")}
+</ul>
+</div>
+
+</div>
+
+<div class="section-divider"></div>
+
+</div>
+</section>
+`).join("");
+
+setTimeout(()=>lucide.createIcons(),100);
+}
+
+buildSections();
+document.addEventListener("mousemove", e => {
+
+document.querySelectorAll(".polaroid").forEach(card => {
+
+    const rect = card.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    if(
+        x >= 0 && x <= rect.width &&
+        y >= 0 && y <= rect.height
+    ){
+
+        const rotateY = (x / rect.width - 0.5) * 10;
+        const rotateX = -(y / rect.height - 0.5) * 10;
+
+        card.style.transform =
+            `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
+
+    }else{
+        card.style.transform =
+            "rotateX(0deg) rotateY(0deg) scale(1)";
+    }
+
+});
+
+});
+</script>
+
+</body>
+</html>
