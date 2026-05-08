@@ -3,434 +3,963 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Life Map Digital Scrapbook</title>
-
-<script src="https://cdn.tailwindcss.com"></script>
+<title>Life Map · A Milestone Story</title>
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lora:wght@400;600&family=Sacramento&display=swap" rel="stylesheet">
-
-<script>
-tailwind.config={
-theme:{
-extend:{
-colors:{
-maroon:'#6B1C2A',
-cream:'#FDF6EC',
-beige:'#F0E6D3',
-warmgray:'#8C7B6B',
-gold:'#C9A94E'
-}
-}}
-}
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Oswald:wght@400;500;600;700&family=Bebas+Neue&family=Permanent+Marker&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-body{font-family:'Lora',serif;background:#FDF6EC;color:#836c6c;}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-.font-display{font-family:'Playfair Display',serif;}
-.font-script{font-family:'Sacramento',cursive;}
-
-.paper{ background-image:url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); }
-
-.polaroid{
-background:white;
-padding:10px 10px 34px;
-box-shadow:0 6px 18px rgba(0,0,0,.15);
-transition:.3s;
-}
-.polaroid:hover{
-transform:scale(1.03);
+:root {
+  --black:   #0A0A0A;
+  --white:   #F5F5F0;
+  --red:     #CC1111;
+  --yellow:  #FFD700;
+  --gray:    #2A2A2A;
+  --midgray: #555;
+  --tone:    #E8E4DC;
+  --ink:     #1A1A1A;
 }
 
-.polaroid{
-    background:white;
-    padding:10px 10px 34px;
-    box-shadow:0 6px 18px rgba(0,0,0,.15);
-    transition:transform .2s ease, box-shadow .2s ease;
-    transform-style:preserve-3d;
+/* ── HALFTONE / SCREENTONE BODY ── */
+body {
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--white);
+  background-image:
+    radial-gradient(circle, rgba(0,0,0,0.07) 1px, transparent 1px);
+  background-size: 6px 6px;
+  color: var(--black);
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
-.polaroid img{
-    transition:transform .2s ease;
-    will-change:transform;
+/* ── SPEED LINES UTILITY ── */
+.speed-bg {
+  position: relative;
+  overflow: hidden;
+}
+.speed-bg::before {
+  content: '';
+  position: absolute;
+  inset: -200%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(0,0,0,0.04) 0deg,
+    rgba(0,0,0,0.04) 0.5deg,
+    transparent 0.5deg,
+    transparent 3deg
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
-.tape{
-width:60px;
-height:18px;
-background:rgba(255,230,160,.7);
-position:absolute;
-top:-10px;
-left:50%;
-transform:translateX(-50%);
+/* ── NAV ── */
+nav {
+  background: var(--black);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  border-bottom: 4px solid var(--red);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 52px;
+}
+.nav-brand {
+  font-family: 'Bangers', cursive;
+  font-size: 1.6rem;
+  color: var(--yellow);
+  letter-spacing: 0.08em;
+  text-shadow: 2px 2px 0 var(--red);
+}
+.nav-links { display: flex; }
+.nav-links a {
+  color: rgba(245,245,240,0.65);
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0 14px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  transition: color 0.15s, background 0.15s;
+}
+.nav-links a:first-child { border-left: 1px solid rgba(255,255,255,0.08); }
+.nav-links a:hover { color: var(--yellow); background: rgba(204,17,17,0.15); }
+@media (max-width: 768px) { .nav-links { display: none; } }
+
+/* ── COVER ── */
+#home {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 24px;
 }
 
-.section-divider{
-border-top:2px dashed #C9A94E;
-margin:70px 0;
-position:relative;
-}
-.section-divider::after{
-content:"✦";
-position:absolute;
-top:-14px;
-left:50%;
-transform:translateX(-50%);
-background:#FDF6EC;
-padding:0 12px;
-color:#C9A94E;
+/* speed lines on cover */
+#home::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255,215,0,0.03) 0deg,
+    rgba(255,215,0,0.03) 0.4deg,
+    transparent 0.4deg,
+    transparent 2.5deg
+  );
+  pointer-events: none;
 }
 
-.swot{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
+/* jagged bottom edge */
+#home::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 40px;
+  background: var(--white);
+  clip-path: polygon(0 100%, 2% 0, 4% 100%, 6% 0, 8% 100%, 10% 0, 12% 100%, 14% 0, 16% 100%, 18% 0, 20% 100%, 22% 0, 24% 100%, 26% 0, 28% 100%, 30% 0, 32% 100%, 34% 0, 36% 100%, 38% 0, 40% 100%, 42% 0, 44% 100%, 46% 0, 48% 100%, 50% 0, 52% 100%, 54% 0, 56% 100%, 58% 0, 60% 100%, 62% 0, 64% 100%, 66% 0, 68% 100%, 70% 0, 72% 100%, 74% 0, 76% 100%, 78% 0, 80% 100%, 82% 0, 84% 100%, 86% 0, 88% 100%, 90% 0, 92% 100%, 94% 0, 96% 100%, 98% 0, 100% 100%);
 }
-@media(max-width:700px){
-.swot{grid-template-columns:1fr;}
+
+.cover-volume {
+  position: relative;
+  z-index: 1;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red);
+  background: var(--yellow);
+  padding: 4px 16px;
+  margin-bottom: 20px;
 }
+.cover-title-wrap {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.cover-title-en {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(3.5rem, 12vw, 9rem);
+  color: var(--white);
+  line-height: 0.88;
+  letter-spacing: 0.04em;
+  text-shadow:
+    4px 4px 0 var(--red),
+    -2px -2px 0 var(--black),
+    6px 6px 0 rgba(0,0,0,0.4);
+  position: relative;
+  z-index: 1;
+}
+.cover-title-en span { color: var(--yellow); }
+.cover-title-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 900;
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  color: rgba(245,245,240,0.35);
+  letter-spacing: 0.3em;
+  margin-top: 4px;
+  position: relative;
+  z-index: 1;
+}
+.cover-subtitle {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 1rem;
+  color: var(--yellow);
+  margin: 16px 0 28px;
+  position: relative;
+  z-index: 1;
+  opacity: 0.85;
+}
+.cover-panel-border {
+  position: relative;
+  z-index: 1;
+  border: 3px solid var(--yellow);
+  padding: 16px 32px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  background: rgba(0,0,0,0.5);
+}
+.cover-panel-border::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(255,215,0,0.3);
+  pointer-events: none;
+}
+.cover-panel-label {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 12px;
+  opacity: 0.7;
+}
+.cover-names {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cover-name {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(245,245,240,0.7);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.cover-univ {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,245,240,0.3);
+  margin-top: 14px;
+}
+
+/* ── CHAPTER BANNER ── */
+.chapter-banner {
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+  border-top: 5px solid var(--red);
+  border-bottom: 3px solid var(--black);
+}
+.chapter-banner::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 120%,
+    rgba(204,17,17,0.06) 0deg,
+    rgba(204,17,17,0.06) 0.4deg,
+    transparent 0.4deg,
+    transparent 2deg
+  );
+  pointer-events: none;
+}
+.chapter-banner-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+.chapter-num-badge {
+  background: var(--red);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 0 100%, 5% 50%);
+  white-space: nowrap;
+}
+.chapter-title-text {
+  font-family: 'Bangers', cursive;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  color: var(--white);
+  letter-spacing: 0.06em;
+  text-shadow: 3px 3px 0 var(--red);
+  line-height: 1;
+}
+.chapter-title-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(245,245,240,0.3);
+  letter-spacing: 0.2em;
+  margin-top: 3px;
+}
+.chapter-icon-wrap {
+  margin-left: auto;
+  color: rgba(255,215,0,0.3);
+}
+
+/* ── MANGA PANEL GRID ── */
+.chapter-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+/* Row A: big left + 2 stacked right — skewed dividers */
+.panel-row-a {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.panel-row-a-right { display: flex; flex-direction: column; gap: 6px; }
+
+/* Row B: 3 panels */
+.panel-row-b {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .panel-row-a { grid-template-columns: 1fr; }
+  .panel-row-b { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .panel-row-b { grid-template-columns: 1fr; }
+}
+
+/* ── MANGA PANEL CARD ── */
+.panel-card {
+  background: var(--tone);
+  border: 3px solid var(--black);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.panel-card:hover {
+  transform: translate(-2px, -3px);
+  box-shadow: 5px 6px 0 var(--black);
+}
+
+/* panel number corner */
+.panel-num {
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--black);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  z-index: 3;
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+}
+
+/* action slash overlay */
+.panel-card::before {
+  content: '';
+  position: absolute;
+  top: -10%; left: -5%;
+  width: 30%; height: 120%;
+  background: rgba(255,255,255,0.06);
+  transform: skewX(-15deg);
+  pointer-events: none;
+  z-index: 1;
+  transition: left 0.3s;
+}
+.panel-card:hover::before { left: 110%; }
+
+.panel-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.panel-card.large  .panel-img-wrap { height: 420px; }
+.panel-card.medium .panel-img-wrap { height: 200px; }
+.panel-card.small  .panel-img-wrap { height: 260px; }
+
+.panel-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.08) saturate(0.85);
+  transition: transform 0.4s;
+}
+.panel-card:hover img { transform: scale(1.05); }
+
+/* screentone overlay on image */
+.panel-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* speech bubble name tag */
+.panel-bubble {
+  position: absolute;
+  bottom: 10px; left: 10px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  padding: 3px 10px 3px 8px;
+  font-family: 'Bangers', cursive;
+  font-size: 0.9rem;
+  letter-spacing: 0.07em;
+  color: var(--black);
+  z-index: 4;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 90% 100%, 80% 70%, 0 70%);
+  padding-bottom: 10px;
+}
+
+.panel-body {
+  padding: 12px 14px 16px;
+  border-top: 2px solid var(--black);
+  background: var(--white);
+  position: relative;
+}
+
+/* caption box style */
+.panel-caption {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.72rem;
+  color: var(--red);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.panel-story {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 400;
+  color: var(--gray);
+  line-height: 1.65;
+}
+.panel-story-empty {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.68rem;
+  color: #bbb;
+}
+
+/* narration box */
+.narration-box {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+/* img placeholder */
+.img-ph {
+  width: 100%; height: 100%;
+  background: #ccc;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size: 4px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bangers', cursive;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+/* ── REFLECTION ── */
+.reflection-outer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.reflection-panel {
+  margin-top: 32px;
+  border: 3px solid var(--black);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+.reflection-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 5px 5px;
+  pointer-events: none;
+}
+.reflection-header {
+  background: var(--black);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.reflection-header-text {
+  font-family: 'Bangers', cursive;
+  font-size: 1.2rem;
+  color: var(--yellow);
+  letter-spacing: 0.08em;
+  text-shadow: 2px 2px 0 var(--red);
+}
+.reflection-body-inner {
+  padding: 24px 28px;
+  position: relative;
+  z-index: 1;
+}
+.reflection-text {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.85;
+  font-style: italic;
+}
+.reflection-sig {
+  margin-top: 14px;
+  text-align: right;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.8rem;
+  color: var(--midgray);
+}
+
+/* ── SWOT ── */
+.swot-outer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+.swot-header {
+  background: var(--red);
+  padding: 10px 20px;
+  margin-top: 20px;
+  clip-path: polygon(0 0, 98% 0, 100% 100%, 2% 100%);
+}
+.swot-header-text {
+  font-family: 'Bangers', cursive;
+  font-size: 1.2rem;
+  color: var(--yellow);
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+}
+.swot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  border: 3px solid var(--black);
+  background: var(--black);
+  gap: 3px;
+  margin-top: 3px;
+}
+@media (max-width: 700px) { .swot-grid { grid-template-columns: 1fr 1fr; } }
+.swot-cell {
+  background: var(--white);
+  padding: 20px 16px;
+  position: relative;
+  overflow: hidden;
+}
+.swot-cell::after {
+  content: attr(data-letter);
+  position: absolute;
+  bottom: -10px; right: 6px;
+  font-family: 'Bangers', cursive;
+  font-size: 5rem;
+  color: rgba(0,0,0,0.05);
+  line-height: 1;
+  pointer-events: none;
+}
+.swot-cell-head {
+  font-family: 'Bangers', cursive;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  color: var(--black);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.swot-letter-badge {
+  background: var(--black);
+  color: var(--yellow);
+  font-family: 'Bangers', cursive;
+  font-size: 1rem;
+  padding: 0 6px;
+}
+.swot-cell ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.swot-cell li {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.72rem;
+  color: var(--gray);
+  line-height: 1.5;
+  padding-left: 14px;
+  position: relative;
+}
+.swot-cell li::before {
+  content: '▶';
+  position: absolute; left: 0; top: 1px;
+  font-size: 0.45rem;
+  color: var(--red);
+}
+.swot-empty {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 0.7rem;
+  color: #ccc;
+}
+
+/* ── CHAPTER END ── */
+.chapter-end {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 24px 40px;
+}
+.chapter-end-inner {
+  border-top: 3px solid var(--black);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.chapter-end-text {
+  font-family: 'Bangers', cursive;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--midgray);
+}
+.chapter-end-slash {
+  font-family: 'Bangers', cursive;
+  font-size: 1.2rem;
+  color: var(--red);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  border-top: 5px solid var(--red);
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  inset: -100%;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255,215,0,0.02) 0deg,
+    rgba(255,215,0,0.02) 0.3deg,
+    transparent 0.3deg,
+    transparent 2deg
+  );
+  pointer-events: none;
+}
+.footer-title {
+  font-family: 'Bangers', cursive;
+  font-size: 1.6rem;
+  color: var(--yellow);
+  letter-spacing: 0.1em;
+  text-shadow: 3px 3px 0 var(--red);
+  margin-bottom: 8px;
+  position: relative;
+}
+.footer-sub {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,245,240,0.25);
+  position: relative;
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px) skewX(-1deg);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0) skewX(0deg); }
 </style>
 </head>
-
-<body class="scroll-smooth">
+<body>
 
 <!-- NAV -->
-<nav class="sticky top-0 bg-maroon text-cream z-50 shadow">
-<div class="max-w-6xl mx-auto flex justify-between items-center h-14 px-4">
-<span class="font-script text-2xl text-gold">Life Map</span>
-
-<div class="hidden md:flex gap-4 text-sm">
-<a href="#home">Home</a>
-<a href="#physical">Physical</a>
-<a href="#digital">Digital</a>
-<a href="#material">Material</a>
-<a href="#spiritual">Spiritual</a>
-<a href="#political">Political</a>
-<a href="#goals">Learnings</a>
-</div>
-</div>
+<nav>
+  <div class="nav-inner">
+    <span class="nav-brand">LIFE MAP</span>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#physical">Physical</a>
+      <a href="#digital">Digital</a>
+      <a href="#material">Material</a>
+      <a href="#spiritual">Spiritual</a>
+      <a href="#political">Political</a>
+      <a href="#goals">Learnings</a>
+    </div>
+  </div>
 </nav>
 
 <!-- COVER -->
-<section id="home" class="min-h-screen flex items-center justify-center paper text-center px-4">
-<div class="border-4 border-double border-maroon p-12 bg-white/70 shadow-xl">
-
-<p class="font-script text-4xl text-gold">A.Y. 2025–2026</p>
-
-<h1 class="font-display text-maroon text-6xl font-bold">
-A journey: "A Milestone Story"
-</h1>
-
-<div class="section-divider"></div>
-
-<p class="font-display text-xl">Group 1</p>
-<p class="uppercase tracking-widest text-sm">Batangas State University</p>
-
-<p class="mt-6 text-sm">
-Russel Christian Flores • Jhon Olyde De Silva • Ethan Sapuay<br>
-John Lorenz Cagalawan • Angelica Aguba • Shayne Ayesa Perez
-</p>
-
-</div>
+<section id="home" class="speed-bg">
+  <div class="cover-volume">Vol. 1 · Group 1 · A.Y. 2025–2026</div>
+  <div class="cover-title-wrap">
+    <div class="cover-title-en">Path of <span>Becoming</span></div>
+    <div class="cover-title-jp">ライフマップ — 一里塚の物語</div>
+  </div>
+  <p class="cover-subtitle">"A Milestone Story"</p>
+  <div class="cover-panel-border">
+    <div class="cover-panel-label">Cast of Characters</div>
+    <div class="cover-names">
+      <span class="cover-name">Russel Christian Flores</span>
+      <span class="cover-name">Jhon Olyde De Silva</span>
+      <span class="cover-name">Angelica Aguba</span>
+      <span class="cover-name">Ethan Sapuay</span>
+      <span class="cover-name">John Lorenz Cagalawan</span>
+      <span class="cover-name">Shayne Ayesa Perez</span>
+    </div>
+    <div class="cover-univ">Batangas State University · Understanding the Self</div>
+  </div>
 </section>
 
 <div id="sections"></div>
 
 <!-- FOOTER -->
-<footer class="bg-maroon text-center text-cream py-8">
-<p class="font-script text-xl text-gold">Life Map Digital Scrapbook</p>
-<p class="text-sm">Understanding the Self • 2025-2026</p>
+<footer>
+  <div class="footer-title">LIFE MAP DIGITAL SCRAPBOOK</div>
+  <div class="footer-sub">Understanding the Self · Group 1 · Batangas State University · 2025–2026</div>
 </footer>
 
 <script>
-
-const members=[
-"Member 1","Member 2","Member 3",
-"Member 4","Member 5","Member 6"
-];
+const jpTitles = {
+  physical: '肉体的な自己',
+  digital:  'デジタルな自己',
+  material: '物質的な自己',
+  spiritual:'精神的な自己',
+  political:'政治的な自己',
+  goals:    '良い学生になること'
+};
 
 const sections = [
-{
-id:"physical",
-title:"Physical Self",
-icon:"heart",
-
-members:[
-{ name:"Russel", image:"images/physical/1.jpg", caption:"", story:"" },
-{ name:"Olyde", image:"images/physical/2.jpg", caption:"'Don't Stop Hangga't Di Kapa Masarap'", story:"This photo represents my physical self during my grinding season, starting September 20. I began going to the gym to build my strength and improve my overall health. At the same time, it helps boost my confidence and shape my character, pushing me to become a better version of myself." },
-{ name:"Ethan", image:"images/physical/3.jpg", caption:"", story:"" },
-{ name:"JLorenz", image:"images/physical/4.jpg", caption:"", story:"" },
-{ name:"Angelica", image:"images/physical/5.jpg", caption:"", story:"" },
-{ name:"Shayne", image:"images/physical/6.jpg", caption:"", story:"" }
-],
-
-reflection:"",
-swot:{
-strengths: [],
-weaknesses: [],
-opportunities: [],
-threats: []
-}
-},
-
-{
-id:"digital",
-title:"Digital Self",
-icon:"monitor",
-
-members:[
-{ name:"Member 1", image:"images/digital/1.jpg", caption:"", story:"" },
-{ name:"Member 2", image:"images/digital/2.jpg", caption:"", story:"" },
-{ name:"Member 3", image:"images/digital/3.jpg", caption:"", story:"" },
-{ name:"Member 4", image:"images/digital/4.jpg", caption:"", story:"" },
-{ name:"Member 5", image:"images/digital/5.jpg", caption:"", story:"" },
-{ name:"Member 6", image:"images/digital/6.jpg", caption:"", story:"" }
-],
-
-reflection:"",
-swot:{
-strengths: [],
-weaknesses: [],
-opportunities: [],
-threats: []
-}
-},
-
-{
-id:"material",
-title:"Material Self",
-icon:"gem",
-
-members:[
-{ name:"Member 1", image:"images/material/1.jpg", caption:"", story:"" },
-{ name:"Member 2", image:"images/material/2.jpg", caption:"", story:"" },
-{ name:"Member 3", image:"images/material/3.jpg", caption:"", story:"" },
-{ name:"Member 4", image:"images/material/4.jpg", caption:"", story:"" },
-{ name:"Member 5", image:"images/material/5.jpg", caption:"", story:"" },
-{ name:"Member 6", image:"images/material/6.jpg", caption:"", story:"" }
-],
-
-reflection:"",
-swot:{
-strengths: [],
-weaknesses: [],
-opportunities: [],
-threats: []
-}
-},
-
-{
-id:"spiritual",
-title:"Spiritual Self",
-icon:"sun",
-
-members:[
-{ name:"Russel", image:"images/spiritual/1.jpg", caption:"'Bait-bait ko pa dine'", story:"This picture was taken when I joined our fellowship. It was an overnight outing with the praise and worship team in our church. During those days with them, I felt a sense of closure and belongingness. I became more connected with my faith and the people around me. This experience helped me grow spiritually and emotionally." },
-{ name:"Member 2", image:"images/spiritual/2.jpg", caption:"", story:"" },
-{ name:"Member 3", image:"images/spiritual/3.jpg", caption:"", story:"" },
-{ name:"Member 4", image:"images/spiritual/4.jpg", caption:"", story:"" },
-{ name:"Member 5", image:"images/spiritual/5.jpg", caption:"", story:"" },
-{ name:"Member 6", image:"images/spiritual/6.jpg", caption:"", story:"" }
-],
-
-reflection:"We realized that spiritual self is strengthened through shared experiences and meaningful connections with others. We learned that being part of a faith-based community can give us comfort, guidance, and a sense of belonging. Through different milestones, we saw how spirituality can positively affect our personal growth and emotional well-being. We also realized that spiritual self is not built instantly, but through continuous experiences like fellowships, worship gatherings, and personal reflection that shape our faith and values. This topic helped us understand that spiritual development is not only personal but also influenced by the people and environment around us. Overall, we value how spirituality helps us stay grounded, gives purpose in life, and strengthens our inner selves during challenges.",
-swot:{
-strengths: [
-    "Strong connection with faith and belief system",
-    "Supportive community like church or fellowship groups", 
-    "Provides emotional comfort and guidance during challenges"
-],
-weaknesses: [
-    "May struggle with doubts or questions about faith",
-    "Limited time for spiritual activities due to busy schedules",
-    "Dependence on group activities for spiritual growth"
-],
-opportunities: [
-    "Participation in fellowships, retreats, and church activities",
-    "Personal reflection and prayer for self-growth",
-    "Building stronger relationships with spiritually-minded people"
-],
-threats: [
-    "Negative influences from peers or environment",
-    "Loss of motivation or inconsistency in spiritual practices",
-    "Life pressures that may affect faith and belief system"
-]
-
-}
-},
-
-{
-id:"political",
-title:"Political Self",
-icon:"flag",
-
-members:[
-{ name:"Member 1", image:"images/political/1.jpg", caption:"", story:"" },
-{ name:"Member 2", image:"images/political/2.jpg", caption:"", story:"" },
-{ name:"Member 3", image:"images/political/3.jpg", caption:"", story:"" },
-{ name:"Member 4", image:"images/political/4.jpg", caption:"", story:"" },
-{ name:"Member 5", image:"images/political/5.jpg", caption:"", story:"" },
-{ name:"Member 6", image:"images/political/6.jpg", caption:"", story:"" }
-],
-
-reflection:"",
-swot:{
-strengths: [],
-weaknesses: [],
-opportunities: [],
-threats: []
-}
-},
-
-{
-id:"goals",
-title:"Learning to be a Good Student",
-icon:"target",
-
-members:[
-{ name:"Member 1", image:"images/goals/1.jpg", caption:"", story:"" },
-{ name:"Member 2", image:"images/goals/2.jpg", caption:"", story:"" },
-{ name:"Member 3", image:"images/goals/3.jpg", caption:"", story:"" },
-{ name:"Member 4", image:"images/goals/4.jpg", caption:"", story:"" },
-{ name:"Member 5", image:"images/goals/5.jpg", caption:"", story:"" },
-{ name:"Member 6", image:"images/goals/6.jpg", caption:"", story:"" }
-],
-
-reflection:"",
-swot:{
-strengths: [],
-weaknesses: [],
-opportunities: [],
-threats: []
-}
-}
-
+  {
+    id:"physical", title:"Training Arc", icon:"heart",
+    members:[
+      { name:"Russel",   image:"images/physical/1.jpg", caption:"MC unlocked: stamina +5… but lungs -10", story:"This picture was taken when I joined a fun run event at MOA organized for SM scholars. It was a meaningful experience where I was able to challenge my endurance while also enjoying the atmosphere of a healthy and active community. Joining this event made me realize the importance of staying physically active not just for fitness, but also for discipline and mental well-being. It also motivated me to continue improving my physical health and lifestyle." },
+      { name:"Olyde",    image:"images/physical/2.jpg", caption:"Don't Stop Hangga't Di Kapa Masarap", story:"This photo represents my physical self during my grinding season, starting September 20. I began going to the gym to build my strength and improve my overall health. At the same time, it helps boost my confidence and shape my character, pushing me to become a better version of myself." },
+      { name:"Angelica",    image:"images/physical/3.jpg", caption:"", story:"" },
+      { name:"Ethan",  image:"images/physical/4.jpg", caption:"", story:"My self-confidence and acceptance of my body grew during our high school prom. Before that event, I often felt insecure about my appearance and worried about how other people would see me. Preparing for prom, dressing up, and spending time with my classmates made me realize that confidence is not only about looks but also about how you carry yourself. That night became a memorable experience because I felt comfortable being myself and enjoyed the moment without overthinking my insecurities." },
+      { name:"JLorenz", image:"images/physical/5.jpg", caption:"My kind of therapy", story:"This photo shows my physical self as I started focusing on improving my body and discipline. I began going to the gym to get stronger and healthier. At first, it wasn’t easy, but I kept showing up and doing my best. Over time, I noticed not just physical changes, but also growth in my confidence and mindset. This journey is helping me become a better and stronger version of myself." },
+      { name:"Aye",   image:"images/physical/6.jpg", caption:"Face Card on Duty", story:"I used to think my physical self was just about how I look, especially when comparing myself to others. But over time, I realized it’s more about how I take care of my own body. There were days I felt insecure but as time goes by, I learned and continued to love myself as it is." }
+    ],
+    reflection:"We realized that our physical self plays an important role in shaping our confidence, discipline, and overall well-being. Through experiences like exercising and maintaining a healthy lifestyle, we understood that physical growth is not just about appearance but also about building strength, endurance, and consistency. We learned that improving our physical self requires dedication and patience. Overall, we realized that taking care of our body helps us become more productive and confident in facing daily challenges.",
+    swot:{ strengths:["Improved confidence and discipline", "Better health and physical endurance", "Awareness of self-care"], weaknesses:["Inconsistency in maintaining routine", "Physical fatigue or lack of motivation"], opportunities:["Access to fitness activities and sports", "Ability to improve lifestyle habits"], threats:["Laziness or distractions", "Unhealthy habits and environment"] }
+  },
+  {
+    id:"digital", title:"Tech Awakening", icon:"monitor",
+    members:[
+      { name:"Russel", image:"images/digital/1.jpg", caption:"Logging in to escape reality… quest: still unfinished life problems", story:"This picture was taken from the online game Genshin Impact. A big part of my digital self is expressed through online games, where I am able to release stress, show my interests, and connect with virtual experiences that reflect my personality. Through gaming, I also learned strategy, patience, and teamwork depending on the situation. It became one of my ways to express emotions and enjoy my personal time in the digital world." },
+      { name:"Olyde", image:"images/digital/2.jpg", caption:"My Digital Presence", story:"This represents my digital self on Facebook, where I share moments of my life and stay connected with friends and family. It allows me to express myself, communicate, and keep updated with others. At the same time, it reminds me to be responsible with what I post and how I interact online." },
+      { name:"Angelica", image:"images/digital/3.jpg", caption:"", story:"" },
+      { name:"Ethan", image:"images/digital/4.jpg", caption:"", story:"As I spent more time online and communicating through digital platforms, I noticed a change in my personality. I used to be timid and would often wait for others to start conversations first. Over time, I became more inviting and willing to approach people, whether through chats, games, or online communities. This “second personality” helped me become more expressive and open, allowing me to build friendships and communicate with more confidence." },
+      { name:"JLorenz", image:"images/digital/5.jpg", caption:"My Online Persona", story:"This screenshot represents my digital self, where I express my personality and connect with others online. Through my profile, I share my interests, interact with friends, and build my identity in the digital world. It reflects how I present myself beyond real life, showing my creativity, connections, and the way I communicate in today’s online space." },
+      { name:"Aye", image:"images/digital/6.jpg", caption:"Main Charater Energy Online", story:"Online, I sometimes present myself that looks more confident. I choose what to post depending on the audience. I have many accounts for different kind of pictures and contents. I filter my followers so that people who are close to me are the ones who can see the things I post. " }
+    ],
+    reflection:"We realized that our digital self is an important part of our identity in today’s modern world. Through the use of technology in learning and communication, we understood how digital tools can help us become more efficient and creative. We also learned that being responsible in the digital world is important to avoid negative impacts. Overall, we realized that technology can either help or hinder our growth depending on how we use it.",
+    swot:{ strengths:["Tech-savvy and adaptable", "Access to information and tools", "Creativity in digital work"], weaknesses:["Overuse of gadgets", "Dependence on technology"], opportunities:["Online learning and skill development", "Exposure to global knowledge"], threats:["Cyber risks and misinformation", "Digital distraction and addiction"] }
+  },
+  {
+    id:"material", title:"What They Gave, I Must Become", icon:"gem",
+    members:[
+      { name:"Russel", image:"images/material/1.jpg", caption:"Final boss: clear skin quest (still grinding)", story:"This picture shows my skincare collection, which represents how I take care of myself. I have developed an interest in maintaining my skin as part of my self-care routine, which helps me feel more confident and refreshed. For me, these materials are not just products, but part of my personal discipline and lifestyle. It reminds me that taking care of myself is also a form of self-love." },
+      { name:"Olyde", image:"images/material/2.jpg", caption:"A Gift with Purpose", story:"This moment reflects my materialistic self when my parents bought me this laptop. It is not just a possession for me, but a tool that helps me in my studies and personal growth. It also reminds me to value their hard work and motivates me to use it responsibly for my future." },
+      { name:"Angelica", image:"images/material/3.jpg", caption:"", story:"" },
+      { name:"Ethan", image:"images/material/4.jpg", caption:"", story:"My interest in arcade games started as simple curiosity whenever I visited malls or arcades with friends and family. Eventually, it became a hobby that I genuinely enjoyed because of the excitement, competition, and collectibles involved. As time passed, I realized that arcade gaming could become an expensive interest, especially when trying different games. Even so, the memories and enjoyment I gained from it made the experience meaningful to me." },
+      { name:"JLorenz", image:"images/material/5.jpg", caption:"Where freedom meets passion", story:"This photo represents my material self through something I value. It is more than just an object, it reflects my hobbies, freedom, and the places I’ve explored. Riding it allows me to relax, clear my mind, and enjoy the journey. It shows how the things I own can also shape my experiences and who I am." },
+      { name:"Aye", image:"images/material/6.jpg", caption:"Add to Cart Energy", story:"I have always been obsessed with putting things on my face since I was a kid. Now that I am older and can sometimes afford to buy makeups, I try to collect them. I do it because it gives me satisfaction to own the things I have always wanted. Although I know that these things won’t define me, these still matters because it is a part of me." }
+    ],
+    reflection:"We realized that material things, when used properly, can become tools that support our growth and development. Through experiences like receiving important possessions such as gadgets or learning tools, we understood the value of responsibility and gratitude. We also learned that these materials are products of effort and sacrifice from others, especially our parents. Overall, we realized that material self should be valued not for possession alone but for its purpose in helping us grow.",
+    swot:{ strengths:["Access to useful tools (e.g., laptop, gadgets)", "Support from family", "Helps productivity and learning"], weaknesses:["Over-reliance on material things", "Lack of appreciation at times"], opportunities:["Use of tools for education and growth", "Skill development through resources"], threats:["Loss or damage of materials", "Materialism or misuse of resources"] }
+  },
+  {
+    id:"spiritual", title:"A Place Called Belonging", icon:"sun",
+    members:[
+      { name:"Russel",   image:"images/spiritual/1.jpg", caption:"Healed: +100 spiritual energy", story:"This picture was taken when I joined our fellowship. It was an overnight outing with the praise and worship team in our church. During those days with them, I felt a sense of closure and belongingness. I became more connected with my faith and the people around me. This experience helped me grow spiritually and emotionally." },
+      { name:"Olyde", image:"images/spiritual/2.jpg", caption:"Remembering with Love and Faith", story:"This moment reflects my spiritual self during All Souls’ Day, where we come together as a family to remember and honor our loved ones who have passed. It reminds me of the importance of faith, gratitude, and connectio not just with the people around me, but also with those who are no longer with us. This experience strengthens my values and gives me a deeper sense of peace and purpose." },
+      { name:"Angelica", image:"images/spiritual/3.jpg", caption:"", story:"" },
+      { name:"Ethan", image:"images/spiritual/4.jpg", caption:"", story:"One of the most memorable spiritual moments in my life was receiving my first communion at the Baguio Cathedral. The experience felt peaceful and important because it strengthened my connection to my faith and my family. Being inside the cathedral, surrounded by solemn prayers and ceremonies, made the occasion feel special and unforgettable. It became a moment of reflection and gratitude that I still remember today. " },
+      { name:"JLorenz", image:"images/spiritual/5.jpg", caption:"Quiet mind, peaceful soul", story:"This photo shows my spiritual side, where I step away from all the noise and just focus on myself. Being in a place like this helps me relax and think about my feelings, my choices, and what really matters to me. It’s a quieter, more personal part of who I am one that looks for peace, meaning, and balance." },
+      { name:"Aye", image:"images/spiritual/6.jpg", caption:"In God's Plan Hopefully", story:"Whenever life gets overwhelming, I find myself searching for peace and meaning. Sometimes it’s through quiet moments, reflection, or prayer. My spiritual self reminds me that there’s more to life than stress and pressure. It helps me stay grounded and hopeful, especially during difficult times. It’s like a silent strength that keeps me going." }
+    ],
+    reflection:"We realized that spiritual self is strengthened through shared experiences and meaningful connections with others. We learned that being part of a faith-based community can give us comfort, guidance, and a sense of belonging. Through different milestones, we saw how spirituality can positively affect our personal growth and emotional well-being. We also realized that spiritual self is not built instantly, but through continuous experiences like fellowships, worship gatherings, and personal reflection that shape our faith and values. This topic helped us understand that spiritual development is not only personal but also influenced by the people and environment around us. Overall, we value how spirituality helps us stay grounded, gives purpose in life, and strengthens our inner selves during challenges.",
+    swot:{
+      strengths:["Strong connection with faith and belief system","Supportive community like church or fellowship groups","Provides emotional comfort and guidance during challenges"],
+      weaknesses:["May struggle with doubts or questions about faith","Limited time for spiritual activities due to busy schedules","Dependence on group activities for spiritual growth"],
+      opportunities:["Participation in fellowships, retreats, and church activities","Personal reflection and prayer for self-growth","Building stronger relationships with spiritually-minded people"],
+      threats:["Negative influences from peers or environment","Loss of motivation or inconsistency in spiritual practices","Life pressures that may affect faith and belief system"]
+    }
+  },
+  {
+    id:"political", title:"The First Time My Voice Mattered", icon:"flag",
+    members:[
+      { name:"Russel", image:"images/political/1.jpg", caption:"MC becomes NPC teacher for a day: +respect from villagers", story:"This picture was taken in Sico, Lipa during our NSTP-CWTS activity. We conducted a teaching session for Grade 5 and 6 students about technology awareness and basic knowledge that can help them in their daily lives. Through this experience, I realized the importance of civic responsibility and community involvement, even as a student. It also helped me develop leadership, communication, and teamwork skills." },
+      { name:"Olyde", image:"images/political/2.jpg", caption:"Leadership in Action", story:"This moment reflects my political self during our NSTP CWTS, where we taught Grade 5 students. It shows my role as a responsible citizen by sharing knowledge and contributing to the community. Through this experience, I learned the importance of service, leadership, and helping others as part of building a better society." },
+      { name:"Angelica", image:"images/political/3.jpg", caption:"", story:"" },
+      { name:"Ethan", image:"images/political/4.jpg", caption:"", story:"My very first time voting was a meaningful experience because I was able to do it together with my siblings. It felt like an important step into adulthood and responsibility as a citizen. While waiting in line and participating in the election process, I realized how each vote represents a person’s voice and choice for the country’s future. Sharing the experience with my siblings also made it more memorable and exciting for me. " },
+      { name:"JLorenz", image:"images/political/5.jpg", caption:"Working together for the common good", story:"This photo represents my political self through bayanihan, where people come together to help one another without expecting anything in return. In moments like this, I show my willingness to cooperate, support others, and be part of a community effort. It reflects how I value unity, shared responsibility, and helping for the common good." },
+      { name:"Aye", image:"images/political/6.jpg", caption:"Loaded Opinion", story:"Ever since, I saw how many Filipinos struggled and the government hasn’t done anything to save them. Since then, I have always craved for a good governance. This photo was taken on April 2022, even though I am not yet a voter that time, I went to a campaign rally because I have always seen this person’s capability as a government official." }
+    ],
+    reflection:"We realized that our political self represents our awareness, responsibility, and participation in society. Through discussions and experiences, we understood the importance of having a voice and making informed decisions. We also learned that being a responsible citizen means understanding our rights and duties. Overall, we realized that even as students, we already play a role in shaping our community and future.",
+    swot:{ strengths:[], weaknesses:[], opportunities:[], threats:[] }
+  },
+  {
+    id:"goals", title:"Rise of the Scholar", icon:"target",
+    members:[
+      { name:"Russel", image:"images/learning/1.jpg", caption:"MC enters academic S-rank mode… no sleep buff activated", story:"This picture was taken when I was awarded as a Dean’s Lister for the 1st and 2nd semester of my first year. It was a proud moment that reflected my hard work, sacrifices, and consistency in my studies. Until now, I continue to strive to maintain my academic performance with the hope of graduating with honors. This achievement motivates me to keep pushing forward despite challenges." },
+      { name:"Olyde", image:"images/learning/2.jpg", caption:"My College Beginnings", story:"This moment reflects my learning experience during my first year in college, where we took a group picture with our professor. It reminds me of how I started adjusting to college life, building new friendships, and gaining knowledge from my professor. This experience helped me grow academically and personally as I began my journey in higher education." },
+      { name:"Angelica", image:"images/learning/3.jpg", caption:"", story:"" },
+      { name:"Ethan", image:"images/learning/4.jpg", caption:"", story:"Graduating from senior high school became one of the biggest milestones in my life. The journey was not always easy because it involved challenges, pressure, deadlines, and personal growth. Despite the struggles, I learned many lessons about discipline, perseverance, and balancing responsibilities. Finishing senior high school made me proud of how far I had come and motivated me to continue pursuing my goals in college and beyond. " },
+      { name:"JLorenz", image:"images/learning/5.jpg", caption:"Coding my way to the future  ", story:"This photo represents my intellectual self through my interest in programming and problem-solving. Writing codes and working on databases help me improve my skills, patience, and critical thinking. Although coding can sometimes be challenging, it motivates me to learn more and continue improving myself for my future career." },
+      { name:"Aye", image:"images/learning/6.jpg", caption:"", story:"" }
+    ],
+    reflection:"We realized that being a good student is not only about getting high grades but also about developing discipline, responsibility, and a strong mindset for learning. Through our academic experiences, we understood the importance of time management, effort, and consistency in achieving our goals. We also learned that challenges in studying help us grow and improve our skills. Overall, we realized that education is a continuous journey that shapes our future.",
+    swot:{ strengths:["Strong determination to learn", "Ability to adapt and improve", "Development of discipline"], weaknesses:["Procrastination", "Difficulty managing time"], opportunities:["Access to education and resources", "Learning from teachers and peers"], threats:["Academic pressure and stress", "Distractions (social media, environment)"] }
+  }
 ];
-function buildSections(){
 
-const container = document.getElementById("sections");
+function imgTag(src, alt) {
+  return `<img src="${src}" alt="${alt}"
+    onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="img-ph" style="display:none">${alt || 'PHOTO'}</div>`;
+}
 
-container.innerHTML = sections.map(sec => `
-<section id="${sec.id}" class="paper py-20 px-4">
+function panelCard(m, size, num) {
+  return `
+    <div class="panel-card ${size} reveal">
+      <div class="panel-img-wrap">
+        ${imgTag(m.image, m.name)}
+        <div class="panel-num">#${String(num).padStart(2,'0')}</div>
+        <div class="panel-bubble">${m.name}</div>
+      </div>
+      <div class="panel-body">
+        ${m.caption ? `<div class="panel-caption">${m.caption}</div>` : ''}
+        ${m.story
+          ? `<p class="panel-story">${m.story}</p>`
+          : `<p class="panel-story-empty">...to be continued</p>`}
+      </div>
+    </div>`;
+}
 
-<div class="max-w-6xl mx-auto">
+function buildSections() {
+  const container = document.getElementById('sections');
+  let pg = 1;
 
-<!-- HEADER -->
-<div class="text-center mb-14">
-<h2 class="font-display text-maroon text-4xl font-bold flex justify-center gap-3">
-<i data-lucide="${sec.icon}"></i>
-${sec.title}
-</h2>
-</div>
+  container.innerHTML = sections.map((sec, idx) => {
+    const m = sec.members;
+    const hasReflection = sec.reflection && sec.reflection.trim();
+    const hasSwot = Object.values(sec.swot).some(a => a.length > 0);
 
-<!-- PHOTO GRID -->
-<div class="grid md:grid-cols-3 gap-10">
+    const rowA = `
+      <div class="panel-row-a reveal">
+        ${panelCard(m[0], 'large',  pg++)}
+        <div class="panel-row-a-right">
+          ${panelCard(m[1], 'medium', pg++)}
+          ${panelCard(m[2], 'medium', pg++)}
+        </div>
+      </div>`;
 
-${sec.members.map(m => `
-<div class="text-center">
+    const rowB = `
+      <div class="panel-row-b reveal">
+        ${panelCard(m[3], 'small', pg++)}
+        ${panelCard(m[4], 'small', pg++)}
+        ${panelCard(m[5], 'small', pg++)}
+      </div>`;
 
-<div class="polaroid relative">
-<div class="tape"></div>
+    const reflectionHtml = hasReflection ? `
+      <div class="reflection-outer">
+        <div class="reflection-panel reveal">
+          <div class="reflection-header">
+            <span class="reflection-header-text">📖 GROUP REFLECTION</span>
+          </div>
+          <div class="reflection-body-inner">
+            <p class="reflection-text">${sec.reflection}</p>
+            <div class="reflection-sig">— Group 1, ${sec.title}</div>
+          </div>
+        </div>
+      </div>` : '';
 
-<img src="${m.image}"
-class="w-full aspect-square object-cover"
-alt="image">
+    const swotHtml = hasSwot ? `
+      <div class="swot-outer">
+        <div class="swot-header reveal">
+          <div class="swot-header-text">⚔ SWOT ANALYSIS ⚔</div>
+        </div>
+        <div class="swot-grid reveal">
+          ${[
+            {key:'strengths',    letter:'S', title:'Strengths'},
+            {key:'weaknesses',   letter:'W', title:'Weaknesses'},
+            {key:'opportunities',letter:'O', title:'Opportunities'},
+            {key:'threats',      letter:'T', title:'Threats'}
+          ].map(s => `
+            <div class="swot-cell" data-letter="${s.letter}">
+              <div class="swot-cell-head">
+                <span class="swot-letter-badge">${s.letter}</span>
+                ${s.title.toUpperCase()}
+              </div>
+              ${sec.swot[s.key].length
+                ? `<ul>${sec.swot[s.key].map(i=>`<li>${i}</li>`).join('')}</ul>`
+                : `<p class="swot-empty">...to be written</p>`}
+            </div>`).join('')}
+        </div>
+      </div>` : '';
 
-<p class="font-display text-maroon mt-2 font-bold">${m.name}</p>
-<p class="text-xs italic">${m.caption}</p>
+    return `
+      <section id="${sec.id}">
+        <div class="chapter-banner speed-bg">
+          <div class="chapter-banner-inner">
+            <div class="chapter-num-badge">CHAPTER ${idx+1}</div>
+            <div>
+              <div class="chapter-title-text">${sec.title.toUpperCase()}</div>
+              <div class="chapter-title-jp">${jpTitles[sec.id] || ''}</div>
+            </div>
+            <div class="chapter-icon-wrap">
+              <i data-lucide="${sec.icon}" style="width:28px;height:28px;"></i>
+            </div>
+          </div>
+        </div>
 
-</div>
+        <div class="chapter-body">
+          ${rowA}
+          ${rowB}
+        </div>
 
-<div class="bg-white mt-4 p-4 shadow">
-<p class="font-bold text-maroon text-sm">Milestone Story</p>
-<p class="text-xs italic">${m.story}</p>
-</div>
+        ${reflectionHtml}
+        ${swotHtml}
 
-</div>
-`).join("")}
+        <div class="chapter-end">
+          <div class="chapter-end-inner">
+            <span class="chapter-end-slash">⚡</span>
+            <span class="chapter-end-text">END OF CHAPTER ${idx+1}</span>
+            <span class="chapter-end-slash">⚡</span>
+          </div>
+        </div>
+      </section>`;
+  }).join('');
 
-</div>
+  setTimeout(() => lucide.createIcons(), 80);
 
-<!-- REFLECTION -->
-<div class="bg-white mt-16 p-6 border-l-4 border-gold shadow">
-<h3 class="font-display text-maroon text-lg font-bold">Group Reflection</h3>
-<p class="italic text-sm">${sec.reflection}</p>
-</div>
-
-<!-- SWOT -->
-<div class="swot max-w-4xl mx-auto mt-10">
-
-<div class="bg-green-50 p-4 border">
-<b>Strengths</b>
-<ul class="text-xs italic list-disc pl-5">
-${sec.swot.strengths.map(s => `<li>${s}</li>`).join("")}
-</ul>
-</div>
-
-<div class="bg-red-50 p-4 border">
-<b>Weaknesses</b>
-<ul class="text-xs italic list-disc pl-5">
-${sec.swot.weaknesses.map(s => `<li>${s}</li>`).join("")}
-</ul>
-</div>
-
-<div class="bg-blue-50 p-4 border">
-<b>Opportunities</b>
-<ul class="text-xs italic list-disc pl-5">
-${sec.swot.opportunities.map(s => `<li>${s}</li>`).join("")}
-</ul>
-</div>
-
-<div class="bg-yellow-50 p-4 border">
-<b>Threats</b>
-<ul class="text-xs italic list-disc pl-5">
-${sec.swot.threats.map(s => `<li>${s}</li>`).join("")}
-</ul>
-</div>
-
-</div>
-
-<div class="section-divider"></div>
-
-</div>
-</section>
-`).join("");
-
-setTimeout(()=>lucide.createIcons(),100);
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 }
 
 buildSections();
-document.addEventListener("mousemove", e => {
-
-document.querySelectorAll(".polaroid").forEach(card => {
-
-    const rect = card.getBoundingClientRect();
-
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    if(
-        x >= 0 && x <= rect.width &&
-        y >= 0 && y <= rect.height
-    ){
-
-        const rotateY = (x / rect.width - 0.5) * 10;
-        const rotateX = -(y / rect.height - 0.5) * 10;
-
-        card.style.transform =
-            `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
-
-    }else{
-        card.style.transform =
-            "rotateX(0deg) rotateY(0deg) scale(1)";
-    }
-
-});
-
-});
 </script>
-
 </body>
 </html>
